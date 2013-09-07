@@ -57,8 +57,7 @@ Agora.Events = {
   onNewListing : function(data) {
     chrome.tabs.getSelected(null, function(tab) {
       var currentTabId = tab.id;
-      chrome.tabs.create({'url': data.url+"#should_scrape=yes" });
-      console.log("onNewListing", data.url);
+      chrome.tabs.create({'url': data.url+"#should_scrape=yes"});
       chrome.tabs.update(currentTabId, {selected: true});
     });
   },
@@ -136,7 +135,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 
 chrome.extension.getBackgroundPage().onAccessTokenChange = function() { 
   $.ajax({
-    url: "https://graph.facebook.com/me?fields=friends&"+sessionStorage.accessToken,
+    url: "https://graph.facebook.com/me?fields=friends,name&"+sessionStorage.accessToken,
     success: function(userInfo) {
       sessionStorage.user = JSON.stringify(userInfo);
       callback(userInfo);

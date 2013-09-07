@@ -3,7 +3,11 @@
   left:0px;
   position: fixed;
   width: 100%;
-  z-index: 99999;
+  z-index: 1001;
+  font-weight: normal;
+  font-size: 1em;
+  font-family: 'Helvetica';
+  font-style: normal;
 }
 
 .bottom-container, .top-container {
@@ -11,28 +15,61 @@
 }
 .top-container {
   width: 100%;
+  overflow-x: scroll;
+  overflow-y: none;
 }
-.top-contianer > a {
-  float: left;
-}
-.top-container a * {
-  color: #222;
-}
-.top-container a:hover *, .top-container a:active *, .top-container a:focus * {
-  color: #222;
+
+.top-container .bubble-head {
+  top: -20px;
+  right: -20px;
+  position: absolute;
 }
 
 .top-container * {
   padding: 0;
   margin: 0;
 }
+.recent-search-item {
+  padding:15px;
+  cursor: pointer;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.recent-search-item:hover {
+  background-color: rgba(0,50,50,.2);
+  border-radius: 3px;
+}
+.top-container > * {
+  margin-top: 12px;
+  float: left;
+  position: relative;
+  text-overflow: ellipsis;
+  width: 140px;
+}
 .top-container img {
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 130px;
+  max-height: 130px;
+  margin: 0 auto;
+  position: relative;
+}
+.top-container h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size:1em;
+  color: #eee;
+  max-height: 36px;
+  text-shadow: -1px 1px 1px #222;
 }
 
 .bottom-container {
   box-shadow: 0px 1px 2px #000;
+}
+
+.top-container .bubble-head img {
+  border-radius: 30px;
+  border: 2px solid #fff;
+  position: relative;
 }
 
 #craigslist-social-navbar input {
@@ -132,4 +169,35 @@ html[xmlns] .clearfix {
 }
 * html .clearfix {
   height: 1%;
+}
+
+.tooltip:hover:after {
+  content: attr(data-name);
+  line-height:13px;
+  vertical-align: baseline;
+  padding: 3px;
+  background: #111;
+  border-radius: 2px;
+  font-size:.7em;
+  letter-spacing:.12em;
+  bottom: -15px;
+  color: #fff;
+  font-family: sans-serif;
+  font-weight: normal;
+  text-shadow: none;
+  right: 5px;
+  position: absolute;
+  z-index: 1002;
+  white-space: nowrap;
+}
+
+.tooltip:hover:before {
+  border: solid;
+  border-color: #111 transparent;
+  border-width: 0px 9px 9px 9px;
+  bottom: -1px;
+  content: "";
+  left: 15px;
+  position: absolute;
+  z-index: 1003;
 }
