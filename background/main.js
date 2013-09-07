@@ -124,7 +124,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 
 chrome.extension.getBackgroundPage().onAccessTokenChange = function() { 
   $.ajax({
-    url: "https://graph.facebook.com/me?fields=friends&"+sessionStorage.accessToken,
+    url: "https://graph.facebook.com/me?fields=friends,name&"+sessionStorage.accessToken,
     success: function(userInfo) {
       sessionStorage.user = JSON.stringify(userInfo);
       callback(userInfo);

@@ -15,7 +15,7 @@ var SHOULD_SCRAPE_REGEX = /.*craigslist\.org.*#should_scrape=yes/;
 
   function init() {
     if (SHOULD_SCRAPE_REGEX.exec(window.location.toString())) {
-      chrome.runtime.sendMessage({ event: 'Scrape', data: {html: document.body.outerHTML, url: window.location.toString() } })
+      chrome.runtime.sendMessage({ event: 'Scrape', data: {html: document.body.outerHTML, url: location.protocol+'//'+location.host+location.pathname} })
       var ww = window.open(window.location, '_self'); ww.close();
       return;
     } 
