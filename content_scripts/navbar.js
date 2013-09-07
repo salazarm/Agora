@@ -20,6 +20,7 @@ var Navbar = (function() {
       window.location = $(e.target).closest('.recent-search-item').data('url')
     });
     for (var i=0; i<user.friendListings.length; i++) {
+      user.friendListings[i].image = user.friendListings[i].image || '';
       $topContainer.append( Templates.topContainerItem(user.friendListings[i]) );     
     }
     $(document).click(function(e) {

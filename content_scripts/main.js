@@ -1,6 +1,12 @@
 var NEW_LISTING_URL_REGEX = /.*post\.craigslist\.org.*s=redirect/;
 var SHOULD_SCRAPE_REGEX = /.*craigslist\.org.*#should_scrape=yes/;
 
+var pusher = new Pusher('5a98a976b95dc707dd88');
+var channel = pusher.subscribe('test_channel');
+  channel.bind('my_event', function(data) {
+    alert(data.message);
+});
+
 (function(document, window) {
   if (document.readyState == "complete") {
     init();

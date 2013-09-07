@@ -33,8 +33,11 @@
   padding:15px;
   cursor: pointer;
   margin-top: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  height:170px;
+  margin-right: 20px;
+  border-radius: 3px;
 }
 .recent-search-item:hover {
   background-color: rgba(0,50,50,.2);
@@ -52,6 +55,9 @@
   max-height: 130px;
   margin: 0 auto;
   position: relative;
+  z-index: 10002;
+  overflow-x: none;
+  overflow-y: scroll;
 }
 .top-container h3 {
   overflow: hidden;

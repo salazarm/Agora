@@ -23,6 +23,7 @@ Agora.Events = {
         var listing_query = new Parse.Query(Listing);
         listing_query.containedIn("facebookID", id_array);
         listing_query.ascending("timestamp");
+        listing_query.limit(6);
         listing_query.find({
           success:function(results){
             user.friendListings = results;

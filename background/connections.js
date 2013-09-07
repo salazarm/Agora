@@ -38,11 +38,8 @@ var scrapeInfo = function(response) {
 		user_obj.set("name", MY_NAME);
 		user_obj.save(null, {
 					success: function(user){
-						alert('New Object Created with objectId: ' + user.id);
 					},
 					error: function(user, error){
-						alert('Failed to create new object with error code: ' + error.description);
-						console.log("USER 1 ERROR : ", error);
 					}
 		});			
 		
@@ -58,15 +55,10 @@ var scrapeInfo = function(response) {
 				var FBUser = Parse.Object.extend("FBUser");
 				var query = new Parse.Query(FBUser);
 				query.equalTo("id_of_user", friend);
-				console.log('Friend asdfasdfasdf!, ' + friend + '.');
 				(function(friend) {
 					query.find({
 						success:function(result) {
-							console.log('Friend !, ' + friend + '.');
 							if(result.length != 0){
-
-								console.log(friend);
-								console.log(MY_ID);
 								//initialize all of the 1st order connections to 10k
 								var Relation = Parse.Object.extend("Relation");
 								var relation_obj = new Relation();
@@ -75,17 +67,13 @@ var scrapeInfo = function(response) {
 								relation_obj.set("coef", 10000);
 								relation_obj.save(null, {
 									success: function(relation_obj){
-										alert('New Object Created with objectId: ' + relation_obj.id);
 									},
 									error: function(gameScore, error){
-										alert('Failed to create new object with error code: ' + error.description);
-										console.log("RELATION 1 ERROR : ", error);
 									}
 								});			
 							}
 						},
 						error:function(error){
-							console.log('ccccccccccccccccccc' + friend + '.');
 						}
 					});
 				})(friend);	
@@ -108,8 +96,6 @@ var scrapeInfo = function(response) {
 	}
 	
 	
-	
-	
 	function executeAPIRequest(URL, func){
 		 $.ajax({
     url: "https://graph.facebook.com" + URL + "&"+sessionStorage.accessToken,
@@ -118,19 +104,15 @@ var scrapeInfo = function(response) {
     }
   });
 	}
-	
   
   
   function loopMessages(threads) {
-		console.log("Response1" , threads);
 		for(var j=0; j<threads.data.length; j++) {
-			console.log('thread!!!, ' + threads.data[j].thread_id + " " + threads.data[j].message_count);
 			var message_count = threads.data[j].message_count;
 			var thread_id = threads.data[j].thread_id;
 			
 			(function(message_count) {
 				executeAPIRequest("/"+thread_id, function(thread) {	
-					console.log("Response" , thread);
 					
 					var users_in_convo = thread.to.data.length;
 					for(var k=0; k<users_in_convo; k++) {
@@ -151,16 +133,13 @@ var scrapeInfo = function(response) {
 											relation_obj.set("coef", 10000);
 											relation_obj.save(null, {
 												success: function(relation_obj){
-													alert('New Object Created with objectId: ' + relation_obj.id);
 												},
 												error: function(gameScore, error){
-													alert('Failed to create new object with error code: ' + error.description);
 												}
 											});
 										}else{
 											var to_update = results[0];
 											var coef = to_update.get("coef");
-											console.log("Messsssssssssssssssages "+person2  , message_count);
 											to_update.set("coef", coef+message_count/users_in_convo);
 											to_update.save();
 										}
@@ -170,7 +149,6 @@ var scrapeInfo = function(response) {
 								}
 							});
 						})(message_count, person2, users_in_convo);	
-						console.log("add to this "+thread.to.data[k].id+' '+message_count+'.');
 					}
 						
 				});
@@ -186,11 +164,9 @@ var scrapeInfo = function(response) {
   
   
   
-	function friendsOfFriends(response2, friend) { 
-  	console.log('friendsOfFriends, response2', arguments);   			
+	function friendsOfFriends(response2, friend) { 		
 		if(response2.friends){
 			for(var j=0; j<20; j++) { //response2.friends.data.length
-				console.log('Friend of friend!!!, ' + response2.friends.data[j].name + '.');
 				var friend2id = response2.friends.data[j].id;
 				
 				//short out quickly if they don't have an account
@@ -205,7 +181,6 @@ var scrapeInfo = function(response) {
   			(function(friend2id){
 					check_query.find({
 						success: function(results){
-							console.log(results.length);
 							if(results.length == 0){
 								var relation_obj = new Relation();
 								relation_obj.set("id_1", MY_ID);
@@ -214,16 +189,13 @@ var scrapeInfo = function(response) {
 								relation_obj.set("coef", 1000);
 								relation_obj.save(null, {
 									success: function(relation_obj){
-										alert('New Object Created with objectId: ' + relation_obj.id);
 									},
 									error: function(gameScore, error){
-										alert('Failed to create new object with error code: ' + error.description);
 									}
 									});				
 							}
 						},
 						error:function(error){
-							console.log("ERROR : " + error.message);
 						}
 					});
 				})(friend2id);
