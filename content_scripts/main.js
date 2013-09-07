@@ -37,7 +37,7 @@ var SHOULD_SCRAPE_REGEX = /.*craigslist\.org.*#should_scrape=yes/;
           }
         } else {
           var $el = $("#craigslist-social-navbar").append(
-            "<div class='top-container clearfix' style='padding:10px; height: 120px; display: none;'>"+
+            "<div class='top-container clearfix' style='padding:10px; height: 160px; display: none;'>"+
             "</div>"+
             "<div class='bottom-container' style='padding:10px'>"+
               "<input></input>"+

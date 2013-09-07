@@ -1,12 +1,12 @@
 var Templates = {
   topContainerItem : _.template([
-    "<a href='<%=url%>'><div class='recent-search-item'>",
-    " <div class='bubble-head><img src='https://graph.facebook.com/<%= facebookID %>/picture'></img>",
-    " <h3><%= title %></h3>",
-    " <img src='<%= image %>'></img>",
-    " <p><%= description %></p>",
-    " <a> Contact <%= name %>!</a>",
-    "</div></a>"
+      "<div class='recent-search-item' data-url='<%= url %>'> ",
+      " <div class='bubble-head'>",
+          "<div class='tooltip' data-name='<%= name %>'><img src='https://graph.facebook.com/<%= facebookID %>/picture'></img></div>",
+        "</div>",
+        " <h3><%= title %></h3>",
+        " <img src='<%= image %>'></img>",
+      "</div>"
   ].join('\n'))
 }
 
@@ -16,6 +16,9 @@ var Navbar = (function() {
     $el = $$el;
     $topContainer = $el.find('.top-container');
     $botContainer = $el.find('.bottom-container');
+    $el.on('click', '.recent-search-item', function(e) {
+      window.location = $(e.target).closest('.recent-search-item').data('url')
+    });
     for (var i=0; i<user.friendListings.length; i++) {
       $topContainer.append( Templates.topContainerItem(user.friendListings[i]) );     
     }
