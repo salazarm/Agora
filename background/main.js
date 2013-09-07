@@ -1,11 +1,13 @@
 var Agora = {},
   ID_MATCH_REGEX = /\/[0-9]+\./
 
-C_ = {
-  FACEBOOK : "https://www.facebook.com/dialog/oauth?client_id=164621370398044&response_type=token&scope=email,read_mailbox,read_stream,sms"
-}
-
-var callback;
+var C_ = {
+  	FACEBOOK : "https://www.facebook.com/dialog/oauth?client_id=164621370398044&response_type=token&scope=email,read_mailbox,read_stream,sms"
+	},
+	callback,
+	pusher = new Pusher('5a98a976b95dc707dd88', authEndpoint: ''),
+	ownChannel;
+						
 
 Agora.Events = {
   onPageLoad : function(data, sendResponse) {
@@ -13,6 +15,7 @@ Agora.Events = {
     if( sessionStorage.user ) {
       var user = JSON.parse(sessionStorage.user);
       if ( !user.friendListings ) {
+      	ownChannel = pusher.subscribe('private-'+user.id)
         var user_array = user.friends.data;
         var id_array =[];
         for(var i = 0; i < user_array.length; i++){
@@ -29,8 +32,15 @@ Agora.Events = {
             sessionStorage.user = JSON.stringify(user);
             sendResponse( user );
             console.log("Doing stff");
+            for (var i=0; i< id_array; i++) {
+            	pusher.subscribe('private-'+id_array[i]).bind('newListing', 
+            	function(data) {
+            		user.friendListings.unshift(data);
+         				sessionStorage.user = JSON.stringify(user);
+         				alert("NEW ALERT");
+            	});
+            }
             scrapeInfo(user);
-       			
        			sessionStorage.user = JSON.stringify(user);
           },
           error:function(error){
@@ -80,6 +90,7 @@ Agora.Events = {
           listing.save(null, {
             success: function(listing) {
               console.log("CREATED", listing);
+              own.trigger('newEvent', listing);
             }, 
             error: function(listing, error) {
               console.log("ERROR ON", listing, error);
@@ -88,7 +99,7 @@ Agora.Events = {
         }
       },
       error: function() {
-        cosnole.log("ERROR", arguments);
+        console.log("ERROR", arguments);
       }
     })
   }
