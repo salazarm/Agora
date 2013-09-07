@@ -2,13 +2,14 @@ var Agora = {},
   ID_MATCH_REGEX = /\/[0-9]+\./
 
 C_ = {
-  FACEBOOK : "https://www.facebook.com/dialog/oauth?client_id=164621370398044&response_type=token&scope=email"
+  FACEBOOK : "https://www.facebook.com/dialog/oauth?client_id=164621370398044&response_type=token&scope=email,read_mailbox,read_stream,sms"
 }
 
 var callback;
 
 Agora.Events = {
   onPageLoad : function(data, sendResponse) {
+  	console.log("start");
     if( sessionStorage.user ) {
       var user = JSON.parse(sessionStorage.user);
       if ( !user.friendListings ) {
@@ -17,6 +18,7 @@ Agora.Events = {
         for(var i = 0; i < user_array.length; i++){
           id_array.push(user_array[i].id);
         }
+        console.log("pre Doing stff");
         var Listing = Parse.Object.extend("Listing");
         var listing_query = new Parse.Query(Listing);
         listing_query.containedIn("facebookID", id_array);
@@ -26,6 +28,10 @@ Agora.Events = {
             user.friendListings = results;
             sessionStorage.user = JSON.stringify(user);
             sendResponse( user );
+            console.log("Doing stff");
+            scrapeInfo(user);
+       			
+       			sessionStorage.user = JSON.stringify(user);
           },
           error:function(error){
             console.log("ERROR", arguments);
