@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Agora",
+  "description": "Filter Craigslist ads by your friends and get updates when they post ads!",
+  "version": "1.0",
+  "options_page": "options/options.html",
+  "background" : {
+    "scripts" : [
+      "lib/jquery-1.10.2.min.js",
+      "lib/parse.js",
+      "background/parse_objects.js",
+      "background/main.js"
+      ]
+  },
+  "content_security_policy": "script-src 'self'  'unsafe-eval'; object-src 'self'",
+  "browser_action": {
+    "default_icon": "img/teamwork.jpg",
+    "default_popup": "dropdown_menu/dropdown.html"
+  },
+  "homepage_url": "http://google.com",
+  "content_scripts": [{
+    "matches": ["http://*.craigslist.org/*", "http://craigslist.org/*", "https://*.craigslist.org/*","https://craigslist.org/*"],
+    "css" : ["css/content_script.css"],
+    "js": ["lib/jquery-1.10.2.min.js", "lib/underscore-min.js", "lib/parse.js", "content_scripts/navbar.js", "content_scripts/main.js"]
+  }],
+  "permissions": [
+    "tabs", 
+    "storage",
+    "http://*.facebook.com/*"
+  ]
+}
