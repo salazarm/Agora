@@ -23,7 +23,7 @@
   "content_scripts": [{
     "matches": ["http://*.craigslist.org/*", "http://craigslist.org/*", "https://*.craigslist.org/*","https://craigslist.org/*"],
     "css" : ["css/content_script.css"],
-    "js": ["lib/jquery-1.10.2.min.js", "lib/underscore-min.js", "lib/parse.js", "lib/pusher.min.js","background/parse_objects.js", "content_scripts/injected_results.js", "background/connections.js", "content_scripts/navbar.js", "content_scripts/main.js"]
+    "js": ["lib/jquery-1.10.2.min.js", "lib/underscore-min.js", "lib/parse.js", "lib/pusher.min.js","background/parse_objects.js", "content_scripts/trustworth_view.js", "content_scripts/injected_results.js", "background/connections.js", "content_scripts/navbar.js", "content_scripts/main.js"]
   }],
   "permissions": [
     "tabs", 

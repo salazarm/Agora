@@ -1,11 +1,13 @@
 var Templates = {
   topContainerItem : _.template([
       "<div class='recent-search-item' data-url='<%= url %>'> ",
-      " <div class='bubble-head'>",
-          "<div class='tooltip' data-name='<%= name %>'><img src='https://graph.facebook.com/<%= facebookID %>/picture'></img></div>",
-        "</div>",
         " <h3><%= title %></h3>",
-        " <img src='<%= image %>'></img>",
+        " <div class='bubble-head'>",
+        "  <div class='tooltip' data-name='<%= name %>'><img src='https://graph.facebook.com/<%= facebookID %>/picture'></img></div>",
+        " </div>",
+        " <div class='bubble-head'>",
+        "   <img src='<%= image %>'></img>",
+        " </div>",
       "</div>"
   ].join('\n'))
 }

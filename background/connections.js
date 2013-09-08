@@ -28,7 +28,7 @@
 
 	}
 
-	function get_coefficient(id_1, id_2){
+	function get_coefficient(id_1, id_2, callback){
 		var Relation = Parse.Object.extend("Relation");
 		var user_query = new Parse.Query(Relation)
 		user_query.equalTo("id_1", id_1);
@@ -37,9 +37,9 @@
 			success:function(results){
 				var coef = results[0].get("coef");
 				if(coef < 1000){
-					return coef/20;
+					callback(coef/20);
 				}else{
-					return coef/40+25;
+					callback(coef/40+25);
 				}
 			},
 			error:function(error){

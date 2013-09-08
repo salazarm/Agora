@@ -19,15 +19,18 @@
   overflow-y: none;
 }
 
-.top-container .bubble-head {
-  top: -20px;
-  right: -20px;
-  position: absolute;
+.top-container .bubble-head, .top-container .bubble-head * {
+  display: inline;
+}
+.top-container .bubble-head img {
+  width: 54px;
+  height: 54px;
 }
 
 .top-container * {
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 .recent-search-item {
   padding:15px;
@@ -35,10 +38,19 @@
   margin-top: 10px;
   padding-top: 3px;
   padding-bottom: 3px;
-  height:170px;
+  height:140px;
+  box-sizing: border-box;
   margin-right: 20px;
   border-radius: 3px;
   box-shadow: 0 1px 1px #444;
+  text-align: center;
+  width: 16%;
+  height: 90%;
+}
+
+.recent-search-item h3 {
+  margin-bottom: 10px;
+  height: 60px;
 }
 .recent-search-item:hover {
   background-color: rgba(0,50,50,.2);
@@ -49,11 +61,10 @@
   float: left;
   position: relative;
   text-overflow: ellipsis;
-  width: 140px;
 }
 .top-container img {
   max-width: 130px;
-  max-height: 100px;
+  max-height: 80px;
   margin: 0 auto;
   position: relative;
   z-index: 1002;
@@ -74,6 +85,7 @@
 
 .bottom-container {
   box-shadow: 0px 1px 2px #000;
+  margin-top: -4px;
 }
 
 .top-container .bubble-head img {
@@ -181,6 +193,9 @@ html[xmlns] .clearfix {
   height: 1%;
 }
 
+.tooltip {
+  position: relative;
+}
 .tooltip:hover:after {
   content: attr(data-name);
   line-height:13px;
@@ -267,4 +282,58 @@ html[xmlns] .clearfix {
   margin: 0 10px 10px 0;
 }
 
+#agora-sidebar {
+  font-family: ff-din-web-condensed,helvetica,sans-serif;
+  background-color: #bbb;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 0 2px #444;
+  border-radius: 3px;
+  text-align: center;
+}
 
+#agora-sidebar * {
+  vertical-align: middle;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#agora-sidebar .rep {
+  background: #ffd800;
+  border-color: #998200;
+  text-shadow: 0 0 2px #d4bc01;
+  color: #fff;
+  font-size: 1.5em;
+  padding: 15px 0;
+}
+#agora-sidebar img {
+  border-radius: 220px;
+  border: 2px solid #fff;
+  width: 154px;
+  height: 154px;
+  margin-bottom: 15px;
+}
+#agora-sidebar .middle {
+  border-top: 1px solid #fff;
+  background-color: #888;
+  padding: 25px 0 25px 0;
+  border-bottom: 1px solid #fff;
+}
+#agora-sidebar .bottom {
+  padding-top: 20px;  
+}
+#agora-sidebar.bubble-head {
+  -webkit-transition: all 2s ease-in-out;
+  -moz-transition: all 2s ease-in-out;
+  -o-transition: all 2s ease-in-out;
+  transition: all 2s ease-in-out;
+}
+
+#agora-sidebar .bubble-head img {
+  width: 80px;
+  height: 80px;
+}
+
+#agora-sidebar .bubble-head img:hover {
+  width: 100px;
+  height: 100px;
+}

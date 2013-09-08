@@ -14,33 +14,22 @@ Agora.Events = {
   	console.log("start");
     if( sessionStorage.user ) {
       var user = JSON.parse(sessionStorage.user);
-      if ( !user.friendListings ) {
-      	ownChannel = pusher.subscribe('private-'+user.id)
+      if ( /*!user.friendListings */ true ) {
         var user_array = user.friends.data;
         var id_array =[];
         for(var i = 0; i < user_array.length; i++){
           id_array.push(user_array[i].id);
         }
-        console.log("pre Doing stff");
         var Listing = Parse.Object.extend("Listing");
         var listing_query = new Parse.Query(Listing);
         listing_query.containedIn("facebookID", id_array);
         listing_query.descending("createdAt");
-        listing_query.limit(6);
+        listing_query.limit(5);
         listing_query.find({
           success:function(results){
             user.friendListings = results;
             sendResponse( user );
             sessionStorage.user = JSON.stringify(user);
-            console.log("Doing stff");
-            for (var i=0; i< id_array; i++) {
-              console.log(private-'+id_array[i]');
-            	pusher.subscribe('private-'+id_array[i]).bind('newListing', 
-            	function(data) {
-            		user.friendListings.unshift(data);
-         				sessionStorage.user = JSON.stringify(user);
-            	});
-            }
             scrapeInfo(user);
        			sessionStorage.user = JSON.stringify(user);
           },
