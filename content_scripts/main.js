@@ -70,14 +70,16 @@ var NEW_LISTING_URL_REGEX = /.*post\.craigslist\.org.*s=redirect/,
             listingQuery.equalTo("craigID", craigID);
             listingQuery.find({
               success : function(result) {
+                console.log("LISTING FOUND")
                 var Relation = Parse.Object.extend("Relation");
                 var relationQuery = new Parse.Query(Relation);
-                relationQuery.equalTo('id_1', result[0].attributes.facebookID);
-                relationQuery.equalTo('id_2', user.id);
+                relationQuery.equalTo('id_1', user.id);
+                relationQuery.equalTo('id_2', result[0].attributes.facebookID);
+                console.log("Searching for", result[0].attributes.facebookID, user.id);
                 relationQuery.find({
                   success: function(result2) {
                     if ( result2.length ) {
-
+                      console.log("RELATION FOUND");
                       var $el = $("<div id='agora-sidebar' style='width:50%; vertical-align: top; max-width: 350px; box-sizing: border-box; display: inline-block;'></div>");
                       $("section.body").html( $( "<div id='original-content' style='margin-left: 30px;display:inline-block; box-sizing: border-box; width: 50%;'>"+$("section.body").html()+"</div>" )).addClass("clearfix").prepend($el);
                       $el.css('height', $("#original-content").height()+'px' );

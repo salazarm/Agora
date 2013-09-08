@@ -2,19 +2,19 @@ var Agora = {},
   ID_MATCH_REGEX = /\/[0-9]+\./
 
 var C_ = {
-  	FACEBOOK : "https://www.facebook.com/dialog/oauth?client_id=164621370398044&response_type=token&scope=email,read_mailbox,read_stream,sms"
-	},
-	callback,
-	pusher = new Pusher('5a98a976b95dc707dd88', { encrypted: true } ),
-	ownChannel;
-						
+    FACEBOOK : "https://www.facebook.com/dialog/oauth?client_id=164621370398044&response_type=token&scope=email,read_mailbox,read_stream,sms"
+  },
+  callback,
+  ownChannel;
+
 
 Agora.Events = {
   onPageLoad : function(data, sendResponse) {
-  	console.log("start");
+    console.log("start");
     if( sessionStorage.user ) {
       var user = JSON.parse(sessionStorage.user);
-      if ( /*!user.friendListings */ true ) {
+      var _b = !user.friendListings;
+      if ( true ) {
         var user_array = user.friends.data;
         var id_array =[];
         for(var i = 0; i < user_array.length; i++){
@@ -30,8 +30,8 @@ Agora.Events = {
             user.friendListings = results;
             sendResponse( user );
             sessionStorage.user = JSON.stringify(user);
-            scrapeInfo(user);
-       			sessionStorage.user = JSON.stringify(user);
+            _b && scrapeInfo(user);
+            sessionStorage.user = JSON.stringify(user);
           },
           error:function(error){
             console.log("ERROR", arguments);
@@ -132,7 +132,3 @@ chrome.extension.getBackgroundPage().onAccessTokenChange = function() {
     }
   });
 }
-
-
-
-
