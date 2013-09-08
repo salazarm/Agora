@@ -55,6 +55,7 @@
 .recent-search-item:hover {
   background-color: rgba(0,50,50,.2);
   border-radius: 3px;
+  box-shadow: 0 2px 2px #444;
 }
 .top-container > * {
   margin-top: 12px;
