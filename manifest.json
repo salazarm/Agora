@@ -9,11 +9,12 @@
       "lib/jquery-1.10.2.min.js",
       "lib/parse.js",
       "background/parse_objects.js",
+      "lib/pusher.min.js",
       "background/connections.js",
       "background/main.js"
       ]
   },
-  "content_security_policy": "script-src 'self'  'unsafe-eval'; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';https://stats.pusher.com/*",
   "browser_action": {
     "default_icon": "img/teamwork.jpg",
     "default_popup": "dropdown_menu/dropdown.html"
@@ -22,11 +23,17 @@
   "content_scripts": [{
     "matches": ["http://*.craigslist.org/*", "http://craigslist.org/*", "https://*.craigslist.org/*","https://craigslist.org/*"],
     "css" : ["css/content_script.css"],
-    "js": ["lib/jquery-1.10.2.min.js", "lib/underscore-min.js", "lib/parse.js", "content_scripts/navbar.js", "content_scripts/main.js"]
+    "js": ["lib/jquery-1.10.2.min.js", "lib/underscore-min.js", "lib/parse.js", "lib/pusher.min.js","background/parse_objects.js", "content_scripts/injected_results.js", "background/connections.js", "content_scripts/navbar.js", "content_scripts/main.js"]
   }],
   "permissions": [
     "tabs", 
     "storage",
-    "http://*.facebook.com/*"
+    "http://*.facebook.com/*",
+    "http://*.pusher.com/*",
+    "https://*.pusher.com/*",
+    "https://pusher.com/*",
+    "http://pusher.com/*",
+    "http://stats.pusher.com/*",
+    "https://stats.pusher.com/*"
   ]
 }

@@ -1,11 +1,6 @@
 var NEW_LISTING_URL_REGEX = /.*post\.craigslist\.org.*s=redirect/;
 var SHOULD_SCRAPE_REGEX = /.*craigslist\.org.*#should_scrape=yes/;
-
-var pusher = new Pusher('5a98a976b95dc707dd88');
-var channel = pusher.subscribe('test_channel');
-  channel.bind('my_event', function(data) {
-    alert(data.message);
-});
+var SEARCH_RESULTS_PAGE_REGEX = /.*craigslist\.org.*query=.*/;
 
 (function(document, window) {
   if (document.readyState == "complete") {
@@ -28,6 +23,7 @@ var channel = pusher.subscribe('test_channel');
     $(document.body).prepend('<div id="craigslist-social-navbar"></div><div style="height:77px;"></div>')
     chrome.runtime.sendMessage({ event: 'PageLoad'},
       function(user) {
+        console.log(user);
         if (user.error) {
           if (user.error == "NO_FACEBOOK") {
             $("#craigslist-social-navbar").addClass("error").html(
@@ -46,7 +42,7 @@ var channel = pusher.subscribe('test_channel');
             "<div class='top-container clearfix' style='padding:10px; height: 160px; display: none;'>"+
             "</div>"+
             "<div class='bottom-container' style='padding:10px'>"+
-              "<input></input>"+
+              "<input placeholder='Search among your friends...'></input>"+
               "<div class='toggle-network-mode'></div>"+
               "<img class='profile-image' src='https://graph.facebook.com/"+user.id+"/picture'></img>"+
             "</div>"
@@ -56,6 +52,10 @@ var channel = pusher.subscribe('test_channel');
             chrome.runtime.sendMessage({ event: 'NewListing', data: {
               url: encodeURI($(document.body).find("#pagecontainer section ul li a").first().text())
             }});
+          }
+          if ( SEARCH_RESULTS_PAGE_REGEX.exec(window.location.toString())) {
+            var $injectedResultsContainer = $("<div id='injected-results-container' style='margin-bottom:20px'></div>");
+            InjectedResults.initialize($injectedResultsContainer, $("#query").val());
           }
         }
       }

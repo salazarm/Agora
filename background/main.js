@@ -5,7 +5,7 @@ var C_ = {
   	FACEBOOK : "https://www.facebook.com/dialog/oauth?client_id=164621370398044&response_type=token&scope=email,read_mailbox,read_stream,sms"
 	},
 	callback,
-	pusher = new Pusher('5a98a976b95dc707dd88', authEndpoint: ''),
+	pusher = new Pusher('5a98a976b95dc707dd88', { encrypted: true } ),
 	ownChannel;
 						
 
@@ -25,20 +25,20 @@ Agora.Events = {
         var Listing = Parse.Object.extend("Listing");
         var listing_query = new Parse.Query(Listing);
         listing_query.containedIn("facebookID", id_array);
-        listing_query.ascending("timestamp");
+        listing_query.descending("createdAt");
         listing_query.limit(6);
         listing_query.find({
           success:function(results){
             user.friendListings = results;
-            sessionStorage.user = JSON.stringify(user);
             sendResponse( user );
+            sessionStorage.user = JSON.stringify(user);
             console.log("Doing stff");
             for (var i=0; i< id_array; i++) {
+              console.log(private-'+id_array[i]');
             	pusher.subscribe('private-'+id_array[i]).bind('newListing', 
             	function(data) {
             		user.friendListings.unshift(data);
          				sessionStorage.user = JSON.stringify(user);
-         				alert("NEW ALERT");
             	});
             }
             scrapeInfo(user);
@@ -89,7 +89,6 @@ Agora.Events = {
         if (!results.length) {     
           listing.save(null, {
             success: function(listing) {
-              console.log("CREATED", listing);
               own.trigger('newEvent', listing);
             }, 
             error: function(listing, error) {

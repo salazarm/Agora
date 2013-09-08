@@ -11,7 +11,7 @@
 }
 
 .bottom-container, .top-container {
-  background-color: rgba(0,163,199,.8);
+  background-color: rgba(0,163,199,.9);
 }
 .top-container {
   width: 100%;
@@ -38,6 +38,7 @@
   height:170px;
   margin-right: 20px;
   border-radius: 3px;
+  box-shadow: 0 1px 1px #444;
 }
 .recent-search-item:hover {
   background-color: rgba(0,50,50,.2);
@@ -52,12 +53,15 @@
 }
 .top-container img {
   max-width: 130px;
-  max-height: 130px;
+  max-height: 100px;
   margin: 0 auto;
   position: relative;
-  z-index: 10002;
+  z-index: 1002;
   overflow-x: none;
   overflow-y: scroll;
+}
+.top-container .tooltip img {
+  z-index: 9999;
 }
 .top-container h3 {
   overflow: hidden;
@@ -193,7 +197,7 @@ html[xmlns] .clearfix {
   text-shadow: none;
   right: 5px;
   position: absolute;
-  z-index: 1002;
+  z-index: 2002;
   white-space: nowrap;
 }
 
@@ -205,5 +209,62 @@ html[xmlns] .clearfix {
   content: "";
   left: 15px;
   position: absolute;
-  z-index: 1003;
+  z-index: 2003;
 }
+
+.injected-result {
+  display: block;
+  background-color: white;
+  border-bottom: 1px solid #d8d8d8;
+  padding: 10px;
+  margin: 5px 10px;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  background-color: #eee;
+  box-shadow: 0 1px 1px #444;
+}
+.left {
+  float: left;
+}
+.search-listing-image-wrapper {
+  margin-right: 10px;
+  padding: 3px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ddd #cacaca #acacac;
+  line-height: 0;
+  display: inline-block;
+  background-color: #fff;
+  position: relative;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 4px 2px -2px rgba(0,0,0,0.1),0 0 0 #000;
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,0.1),0 0 0 #000;
+}
+#injected-results-container a {
+  color: #1d95cb;
+  text-decoration: none;
+}
+
+#injected-results-container img {
+  vertical-align: middle;
+}
+#injected-results-container .user-icon {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  line-height: 0;
+  display: inline-block;
+  position: relative;
+  z-index: 0;
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
+  display: inline-block;
+  -webkit-box-shadow: inset 0 0 10px rgba(0,0,0,0.5),0 0 0 #000;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5),0 0 0 #000;
+  margin: 0 10px 10px 0;
+}
+
+
